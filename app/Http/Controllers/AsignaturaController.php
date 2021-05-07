@@ -46,7 +46,8 @@ class AsignaturaController extends Controller
         $datosAsignatura=request()->except('_token');
         //AsignaturaDB::insert('insert into users (id, name) values (?, ?)', [1, 'Dayle'])
         Asignatura::insert($datosAsignatura);
-        return response()->json($datosAsignatura);
+        //return response()->json($datosAsignatura);
+        return redirect('asignaturas');
     }
 
     /**
@@ -66,9 +67,11 @@ class AsignaturaController extends Controller
      * @param  \App\Models\Asignatura  $asignatura
      * @return \Illuminate\Http\Response
      */
-    public function edit(Asignatura $asignatura)
+    public function edit($id)
     {
         //
+        $asignatura =Asignatura::findOrFail($id);
+        return view('asignaturas.editar',compact('asignatura'));
     }
 
     /**
@@ -78,9 +81,13 @@ class AsignaturaController extends Controller
      * @param  \App\Models\Asignatura  $asignatura
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Asignatura $asignatura)
+    public function update(Request $request, $id)
     {
         //
+        $datosAsignatura=request()->all();
+        $datosAsignatura=request()->except(['_token','_method']);
+        Asignatura::where('id','=',$id)->update($datosAsignatura);
+        return redirect('asignaturas');
     }
 
     /**
@@ -89,8 +96,12 @@ class AsignaturaController extends Controller
      * @param  \App\Models\Asignatura  $asignatura
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Asignatura $asignatura)
+    public function destroy($id)
     {
         //
+        //$asignatura=Asignatura::findOrFail($id);
+        Asignatura::destroy($id);
+        return redirect('asignaturas');
+
     }
 }

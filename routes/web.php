@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::resource('asignaturas', 'App\Http\Controllers\AsignaturaController');
+Route::resource('estudiantes', 'App\Http\Controllers\EstudianteController');
+
 /*
 Route::get('/estudiante', function () {
     return view('estudiante.index');
@@ -30,6 +34,7 @@ Route::get('/estudiante/create', function () {
 /*
 Route::get('/estudiante', 'App\Http\Controllers\EstudianteController@index');
 Route::get('/estudiante/create', 'App\Http\Controllers\EstudianteController@create');
+
 */
 
 
@@ -40,6 +45,7 @@ Route::get('/estudiante/create', 'App\Http\Controllers\EstudianteController@crea
 Route::get('/asignaturas', function () {
     return view('asignaturas.index');
 });
+
 
 
 Route::get('/asignaturas/create', function () {
@@ -53,7 +59,5 @@ Route::get('/asignaturas/create', 'App\Http\Controllers\AsignaturaController@cre
 */
 
 
-Route::resource('asignaturas', 'App\Http\Controllers\AsignaturaController');
 
-Route::resource('estudiantes', 'App\Http\Controllers\EstudianteController');
 

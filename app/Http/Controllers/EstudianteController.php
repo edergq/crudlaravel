@@ -11,7 +11,8 @@ class EstudianteController extends Controller
     public function index()
     {
         // 
-        $datos['estudiantes']=Estudiante::paginate(3);
+        $datos['estudiantes']=Estudiante::paginate();
+        
         return view('estudiante.index',$datos);
     }
 
@@ -29,9 +30,9 @@ class EstudianteController extends Controller
     {
         $datosEstudiante=request()->all();        
         $datosEstudiante=request()->except('_token');        
-        Estudiante::insert($datosEstudiante);
+        Estudiante::create($datosEstudiante);
         //  return response()->json($datosEstudiante);
-        redirect('estudiantes');
+        return redirect('estudiantes');
         
     }
 
@@ -42,19 +43,36 @@ class EstudianteController extends Controller
     }
 
     
-    public function edit(Estudiante $estudiante)
+    public function edit($id)
     {
         //
+        $estudiante =Estudiante::findOrFail($id);
+        return view('estudiante.editar',compact('estudiante'));
+
+
     }
     
-    public function update(Request $request, Estudiante $estudiante)
+    public function update(Request $request, $id)
     {
-        //
+        //       
+
+        $datosEstudiante=request()->all();        
+        $datosEstudiante=request()->except('_token','_method');     
+
+        Estudiante::where('id','=',$id)->update($datosEstudiante);
+        return redirect('estudiantes');
+
+        
+
     }
 
 
-    public function destroy(Estudiante $estudiante)
+    public function destroy($id)
     {
         //
+        Estudiante::destroy($id);
+        return redirect('estudiantes');
+
+
     }
 }

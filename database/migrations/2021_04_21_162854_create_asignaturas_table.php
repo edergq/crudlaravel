@@ -17,6 +17,10 @@ class CreateAsignaturasTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('descripcion');
+            
+            $table->integer('creditos');
+            $table->integer('horas');
+
             $table->timestamps();
         });
     }
